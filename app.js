@@ -5,10 +5,7 @@ const destForm = document.querySelector('.destination-form');
 const originsEle = document.querySelector('.origins');
 const destinationsEle = document.querySelector('.destinations');
 const launchBtn = document.querySelector('button');
-const geometries = {
-  origin: [],
-  destination: []
-}
+const geometries = {origin: [], destination: []};
 
 originForm.onsubmit = event => {
   displayLocations(event.target.firstElementChild.value, event);
@@ -53,12 +50,18 @@ function displayTripPlanner(g) {
   .then(resp => resp.json())
   .then(data => {
     console.log(data)
+    insertTripPlan(data)
   })
+}
+
+function insertTripPlan(p) {
 
 }
 
+
 function displayLocations(query, event) {
   event.preventDefault();
+  
   fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?access_token=${mapboxgKey}&limit=10&bbox=-97.325875, 49.766204, -96.953987, 49.99275`)
    .then(resp => resp.json())
    .then(data => {
